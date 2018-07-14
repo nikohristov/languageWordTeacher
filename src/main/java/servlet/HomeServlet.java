@@ -6,16 +6,20 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
+
+import manager.SessionManager;
+import model.User;
 
 /**
  * Servlet implementation class HomeServlet
  */
-@WebServlet("/")
+@WebServlet("/home")
 public class HomeServlet extends HttpServlet {
 	
 	private static final long serialVersionUID = 1L;
 	
-	public static final String HOME_JSP_NAME = "/home.jsp";
+	public static final String JSP_NAME_HOME = "/home.jsp";
        
     /**
      * @see HttpServlet#HttpServlet()
@@ -28,7 +32,21 @@ public class HomeServlet extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		request.getRequestDispatcher(HomeServlet.HOME_JSP_NAME).forward(request, response);
+		String returnPage = HomeServlet.JSP_NAME_HOME;
+		
+		if (!SessionManager.doesValidSessionExist(request)) {
+			System.out.println("No session");
+			
+			returnPage = LoginServlet.JSP_NAME_LOG_IN;
+		} else {
+			//TODO for test purposes
+			HttpSession session = request.getSession(false);
+			System.out.println(((User) session.getAttribute(SessionManager.SESSION_KEY_LOGGED_USER)).getUsername());
+		}
+		
+		request.getRequestDispatcher(returnPage).forward(request, response);
+		
+		return;
 	}
 
 	/**

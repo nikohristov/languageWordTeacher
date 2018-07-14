@@ -22,11 +22,3 @@ public class DatabaseManager {
 		return DatabaseManager.mongoClient.getDatabase(DatabaseManager.DATABASE_NAME);
 	}
 }
-
-//class Now {
-//	public static void main(String[] args) {
-//		MongoDatabase db = DatabaseManager.getConnection();
-//		System.out.println(db.getCollection("user").find());
-//	}
-//}
-

@@ -4,7 +4,18 @@
 
 <head>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-<script src=../resources/javascript/test.js></script>
+<script>
+$(function() {
+	$('#addMeaningButton').click(function() {
+		addFields();
+	});
+});
+
+function addFields() {
+	var html = "<input name='meaningList' type='text'><br>";
+	$('#wordFields').append(html);
+}
+</script>
 </head>
 
 <body>
@@ -12,7 +23,7 @@
 		method="post">
 		<div id="wordFields">
 			<input name="title" type="text" placeholder="Title"><br>
-			<input name="meaning[]" type="text"><br>
+			<input name="meaningList" type="text"><br>
 		</div>
 		<button type="button" id="addMeaningButton">Add more meanings</button>
 		<br> <input type="submit">
